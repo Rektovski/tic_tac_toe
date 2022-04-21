@@ -1,3 +1,5 @@
+// tic-tac-toe OtarMurmanishvili
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -8,10 +10,11 @@ bool T=true;
 void board();
 void draw();
 void checkWin();
+void checkTie();
 
 int main() {
     short i,j,check=1;
-    char C; // X || Y
+    char C; // X || O
     board();
     while(T){
         draw();
@@ -20,8 +23,9 @@ int main() {
         cin>>C>>i>>j;
         if(A[i][j]=='-' && check==2 && C=='X')A[i][j]='X';
         else if(A[i][j]=='-' && check==1 && C=='O')A[i][j]='O';
-            else {cout<<"ERROR!\n";break;}
+        else {cout<<"ERROR!\n";break;}
         checkWin();
+        checkTie();
     }
 }
 
@@ -34,7 +38,6 @@ void board(){
             A[i][j]='-';
         }
     }
-
 }
 void draw(){
     short i,j;
@@ -63,4 +66,13 @@ void checkWin(){
     if(A[1][3]=='Y' && A[2][3]=='Y' && A[3][3]=='Y')T=false,cout<<"Y wins!\n",draw();
     if(A[1][1]=='Y' && A[2][2]=='Y' && A[3][3]=='Y')T=false,cout<<"Y wins!\n",draw();
     if(A[3][1]=='Y' && A[2][2]=='Y' && A[1][3]=='Y')T=false,cout<<"Y wins!\n",draw();
+}
+void checkTie(){
+    short i,j,ans=0;
+    for(i=1;i<=3;++i){
+        for(j=1;j<=3;++j){
+            if(A[i][j]=='X' || A[i][j]=='O')++ans;
+        }
+    }
+    if(ans==9 && T)T=false,draw(),cout<<"Tie! \n";
 }
